@@ -1,4 +1,4 @@
-﻿Shader "Debug/UV 1" {
+﻿Shader "Debug/UV 3" {
 SubShader {
 	Pass {
 		Fog { Mode Off }
