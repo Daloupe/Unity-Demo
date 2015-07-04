@@ -7,3 +7,19 @@
 	 
 - Have Letterbox open up at start.
 
+- Fix Portal Effect
+- Animate Tree
+- Animate Door
+
+- Add Tree Particles
+- Add Tumbleweed
+- Add Bird
+- Add Dust Motes
+	- Apply Wind Force
+- Add Ground detail
+
+- Shrink File Size
+
+- Add Day/Night Cycle
+
+- Add Rift Support
