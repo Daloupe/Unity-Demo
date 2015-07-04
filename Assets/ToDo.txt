@@ -1,0 +1,9 @@
+- Create Portal Like Doors Instantiated from the plant.
+	- Wind speed increases until player clicks the plant.
+
+- Time bird flying across screen.
+
+- Neaten the AudioCrossfade code.
+	 
+- Have Letterbox open up at start.
+
