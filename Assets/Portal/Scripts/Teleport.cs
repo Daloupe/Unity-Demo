@@ -22,10 +22,11 @@ public class Teleport : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public float MaxIntensity = 1.0f;
     public float FadeSpeed = 1.0f;
 
+    Animator animator;
     // Use this for initialization
     void Start()
     {
-
+        animator = Parent.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -44,6 +45,8 @@ public class Teleport : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         if (!colliding.Contains(other))
         {
+            animator.SetBool("Open", false);
+
             m_Walking = false;
             //Quaternion q1 = Quaternion.FromToRotation(transform.up, OtherEnd.up);
             //Quaternion q2 = Quaternion.FromToRotation(-transform.up, OtherEnd.up);
@@ -70,7 +73,8 @@ public class Teleport : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             //    other.transform.LookAt(other.transform.position + q2 * fwd, OtherEnd.transform.forward);
             //}
 
-            Parent.GetComponent<PlayMakerFSM>().Fsm.Event("HidePortal");//.SetActive(false);
+
+            //Parent.GetComponent<PlayMakerFSM>().Fsm.Event("HidePortal");//.SetActive(false);
 
 
         }

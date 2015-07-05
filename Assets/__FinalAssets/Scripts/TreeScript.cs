@@ -15,6 +15,8 @@ public class TreeScript : MonoBehaviour, IPointerClickHandler
     public WindZone windZone;
     public float lowTurb, highTurb, lowMain, highMain, lowMag, highMag;
     public GameObject portalGroup;
+
+    Animator m_Animator;
     void Awake()
     {
         //portalGroup = GameObject.Find("Portal Group");
@@ -22,11 +24,13 @@ public class TreeScript : MonoBehaviour, IPointerClickHandler
         ////foreach (var c in tree.GetComponentsInChildren())
         //treeData = (tree.data as TreeEditor.TreeData);
         //treeBranch = treeData.branchGroups[2];
+        m_Animator = portalGroup.GetComponent<Animator>();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        portalGroup.GetComponent<PlayMakerFSM>().Fsm.Event("ShowPortal");//.SetActive(true);
+        m_Animator.SetBool("Open", true);
+        //portalGroup.GetComponent<PlayMakerFSM>().Fsm.Event("ShowPortal");//.SetActive(true);
         StartCoroutine(AnimateTurbulence());
         //Debug.Log("Clicked " + treeBranch.height);
         //StopAllCoroutines();
