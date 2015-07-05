@@ -49,7 +49,7 @@ public class FadeAudio : MonoBehaviour
         {
             StopAllCoroutines();
             StartCoroutine(FadeOut());
-            Camera.main.GetComponent<PlayMakerFSM>().Fsm.Event("FadeCameraOut");
+            //Camera.main.GetComponent<PlayMakerFSM>().Fsm.Event("FadeCameraOut");
         }
     }
 
@@ -71,6 +71,6 @@ public class FadeAudio : MonoBehaviour
             m_Audio.volume = audio2Volume;
             yield return null;
         }
-        Application.Quit();
+        //Application.Quit();
     }
 }

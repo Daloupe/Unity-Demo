@@ -41,7 +41,7 @@ public class Teleport : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Entered");
+        //Debug.Log("Entered");
 
         if (!colliding.Contains(other))
         {
