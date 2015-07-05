@@ -47,10 +47,5 @@ public class MoveCamera : MonoBehaviour
             transform.Rotate(Vector3.up, m_rotateSpeed); //transform.position = transform.position + (transform.right * speed);
         }
 
-        // Quit
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
 	}
 }

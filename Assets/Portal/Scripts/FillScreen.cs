@@ -30,7 +30,7 @@ public class FillScreen : MonoBehaviour
     {
         //sky.position = cam.transform.position;
 
-        Quaternion q = Quaternion.FromToRotation(-portal1.up, cam.transform.forward);
+        Quaternion q = Quaternion.FromToRotation(portal1.up, cam.transform.forward);
         portal1Cam.transform.position = portal2.position + (cam.transform.position - portal1.position);
         portal1Cam.transform.LookAt(portal1Cam.transform.position + q * portal2.up, portal2.transform.forward);
         //portal1Cam.nearClipPlane = (portal1Cam.transform.position - portal2.position).magnitude - 0.3f;

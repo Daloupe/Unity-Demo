@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 
 [RequireComponent(typeof(Tree))]
-public class TreeScript : MonoBehaviour, IPointerClickHandler
+public class TreeScript : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     //public Vector2 maxHeight = new Vector2(44, 50);
     //Vector2 originalHeight;
@@ -16,7 +16,9 @@ public class TreeScript : MonoBehaviour, IPointerClickHandler
     public float lowTurb, highTurb, lowMain, highMain, lowMag, highMag;
     public GameObject portalGroup;
 
-    Animator m_Animator;
+    Animator m_PortalAnimator;
+    Animator m_TreeAnimator;
+
     void Awake()
     {
         //portalGroup = GameObject.Find("Portal Group");
@@ -24,12 +26,13 @@ public class TreeScript : MonoBehaviour, IPointerClickHandler
         ////foreach (var c in tree.GetComponentsInChildren())
         //treeData = (tree.data as TreeEditor.TreeData);
         //treeBranch = treeData.branchGroups[2];
-        m_Animator = portalGroup.GetComponent<Animator>();
+        m_PortalAnimator = portalGroup.GetComponent<Animator>();
+        m_TreeAnimator = GetComponentInParent<Animator>();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        m_Animator.SetBool("Open", true);
+        m_PortalAnimator.SetBool("Open", true);
         //portalGroup.GetComponent<PlayMakerFSM>().Fsm.Event("ShowPortal");//.SetActive(true);
         StartCoroutine(AnimateTurbulence());
         //Debug.Log("Clicked " + treeBranch.height);
@@ -136,4 +139,16 @@ public class TreeScript : MonoBehaviour, IPointerClickHandler
     //    }
     //    //Debug.Log(treeBranch.height);
     //}
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //Debug.Log("enter");
+        m_TreeAnimator.SetBool("MouseOver", true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        //Debug.Log("exit");
+        m_TreeAnimator.SetBool("MouseOver", false);
+    }
 }
