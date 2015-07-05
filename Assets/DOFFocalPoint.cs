@@ -10,6 +10,8 @@ public class DOFFocalPoint : MonoBehaviour
     float m_BackgroundClickPlaneDistance;
     MeshRenderer m_MainRenderer, m_PortalRenderer;
 
+    Vector3 lastMousePos;
+
     void Awake()
     {
         m_MainRenderer = GetComponent<MeshRenderer>();
@@ -20,6 +22,12 @@ public class DOFFocalPoint : MonoBehaviour
         //m_BackgroundClickPlaneDistance = Mathf.Sqrt(Mathf.Pow((bcp.position - MainCamera.transform.position).z,2) + Mathf.Pow(bcp.localScale.x * 0.5f, 2));
         //Debug.Log(m_BackgroundClickPlaneDistance);
     }
+
+    void Start()
+    {
+        lastMousePos = Input.mousePosition;
+    }
+
 	void Update () 
     {
         if(Input.GetKeyDown(KeyCode.F))
@@ -27,16 +35,25 @@ public class DOFFocalPoint : MonoBehaviour
             m_MainRenderer.enabled = m_PortalRenderer.enabled = !m_MainRenderer.enabled;     
         }
 
+        if(lastMousePos != Input.mousePosition)
+        {
+            lastMousePos = Input.mousePosition;
+            CastRay();
+        }
+	}
+
+    void CastRay()
+    {
         var hit = new RaycastHit();
 
-        if (Physics.Raycast(MainCamera.ScreenPointToRay(Input.mousePosition), out hit, m_BackgroundClickPlaneDistance, MainMask))
+        if (Physics.Raycast(MainCamera.ScreenPointToRay(lastMousePos), out hit, m_BackgroundClickPlaneDistance, MainMask))
         {
             transform.position = hit.point;
 
             if (hit.collider.tag == "Portal")
             {
                 //var portalHit = new RaycastHit();
-                if (Physics.Raycast(PortalCamera.ScreenPointToRay(Input.mousePosition), out hit, m_BackgroundClickPlaneDistance, PortalMask))
+                if (Physics.Raycast(PortalCamera.ScreenPointToRay(lastMousePos), out hit, m_BackgroundClickPlaneDistance, PortalMask))
                 {
                     PortalFocalPoint.position = hit.point;
                 }
@@ -46,6 +63,5 @@ public class DOFFocalPoint : MonoBehaviour
                 PortalFocalPoint.position = hit.point + (PortalCamera.transform.position - MainCamera.transform.position);
             }
         }
-	
-	}
+    }
 }

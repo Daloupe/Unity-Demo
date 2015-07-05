@@ -12,7 +12,8 @@ public class TreeScript : MonoBehaviour, IPointerClickHandler
     //public Tree tree;
     //TreeEditor.TreeData treeData;
     //TreeEditor.TreeGroupBranch treeBranch;
-
+    public WindZone windZone;
+    public float lowTurb, highTurb, lowMain, highMain, lowMag, highMag;
     public GameObject portalGroup;
     void Awake()
     {
@@ -25,10 +26,42 @@ public class TreeScript : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        portalGroup.SetActive(true);
+        portalGroup.GetComponent<PlayMakerFSM>().Fsm.Event("ShowPortal");//.SetActive(true);
+        StartCoroutine(AnimateTurbulence());
         //Debug.Log("Clicked " + treeBranch.height);
         //StopAllCoroutines();
         //StartCoroutine(GrowBranch());
+    }
+
+    IEnumerator AnimateTurbulence()
+    {
+        float elapsedTime = 0;
+        float time = 3;
+
+        while (elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            windZone.windPulseMagnitude = Mathf.Lerp(lowMag, highMag, (elapsedTime / time));
+            windZone.windTurbulence = Mathf.Lerp(lowTurb, highTurb, (elapsedTime / time));
+            windZone.windMain = Mathf.Lerp(lowMain, highMain, (elapsedTime / time));
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        elapsedTime = 0;
+        while (elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            windZone.windPulseMagnitude = Mathf.Lerp(highMag, lowMag, (elapsedTime / time));
+            windZone.windTurbulence = Mathf.Lerp(highTurb, lowTurb, (elapsedTime / time));
+            windZone.windMain = Mathf.Lerp(highMain, lowMain, (elapsedTime / time));
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        //windZone.windPulseMagnitude = lowMag;
+        //windZone.windTurbulence = lowTurb;
+        //windZone.windMain = lowMain;
     }
 
     //IEnumerator GrowBranch()

@@ -3,8 +3,15 @@ using System.Collections;
 
 public class MoveCamera : MonoBehaviour 
 {
+    public GameObject PortalMesh;
+
     float m_moveSpeed = 0.1f;
     float m_rotateSpeed = 1.0f;
+    
+    void Start()
+    {
+        transform.LookAt(PortalMesh.transform);
+    }
 
 	void LateUpdate () 
     {
