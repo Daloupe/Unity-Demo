@@ -6,8 +6,9 @@ Shader "Custom/JustZValue" {
 		_MainTex ("Base (RGB)", 2D) = "white" {}
 	}
 	SubShader {
-		Tags {"RenderType"="Opaque" "Queue"="Background-3" }
-		LOD 500
+		Tags {"RenderType"="Opaque" "Queue"="Background-10" }
+		Fog { Mode Off }
+		LOD 200
 
 		ColorMask 0
 		
