@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DOFFocalPoint : MonoBehaviour 
+public class DOFFocalPoint : MonoBehaviour
 {
     public Camera MainCamera, PortalCamera;
     public Transform PortalFocalPoint;
@@ -13,7 +13,7 @@ public class DOFFocalPoint : MonoBehaviour
     float m_BackgroundClickPlaneDistance;
     MeshRenderer m_MainRenderer, m_PortalRenderer;
 
-    Vector3 lastMousePos;
+    //Vector3 lastMousePos;
     Vector3 mainTargetPos, portalTargetPos;
 
     void Awake()
@@ -27,35 +27,35 @@ public class DOFFocalPoint : MonoBehaviour
         //Debug.Log(m_BackgroundClickPlaneDistance);
     }
 
-    void Start()
-    {
-        lastMousePos = Input.mousePosition;
-    }
+    //void Start()
+    //{
+    //lastMousePos = Input.mousePosition;
+    //}
 
-	void Update () 
+    void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            m_MainRenderer.enabled = m_PortalRenderer.enabled = !m_MainRenderer.enabled;     
+            m_MainRenderer.enabled = m_PortalRenderer.enabled = !m_MainRenderer.enabled;
         }
 
-        if(lastMousePos != Input.mousePosition)
-        {
-            lastMousePos = Input.mousePosition;
-            CastRay();
-        }
+        //if(lastMousePos != Input.mousePosition)
+        //{
+        //    lastMousePos = Input.mousePosition;
+        CastRay();
+        //}
 
         var moveSpeed = moveDistance / moveTime * Time.deltaTime;
         var portalMoveSpeed = portalMoveDistance / moveTime * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, mainTargetPos, moveSpeed);
         PortalFocalPoint.position = Vector3.MoveTowards(PortalFocalPoint.position, portalTargetPos, portalMoveSpeed);
-	}
+    }
 
     void CastRay()
     {
         var hit = new RaycastHit();
 
-        if (Physics.Raycast(MainCamera.ScreenPointToRay(lastMousePos), out hit, m_BackgroundClickPlaneDistance, MainMask))
+        if (Physics.Raycast(MainCamera.ScreenPointToRay(Input.mousePosition), out hit, m_BackgroundClickPlaneDistance, MainMask))
         {
             mainTargetPos = hit.point;
             moveDistance = Vector3.Distance(mainTargetPos, transform.position);
@@ -64,7 +64,7 @@ public class DOFFocalPoint : MonoBehaviour
             if (hit.collider.tag == "Portal")
             {
                 //var portalHit = new RaycastHit();
-                if (Physics.Raycast(PortalCamera.ScreenPointToRay(lastMousePos), out hit, m_BackgroundClickPlaneDistance, PortalMask))
+                if (Physics.Raycast(PortalCamera.ScreenPointToRay(Input.mousePosition), out hit, m_BackgroundClickPlaneDistance, PortalMask))
                 {
                     portalTargetPos = hit.point;
                     //PortalFocalPoint.position = hit.point;
